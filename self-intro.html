@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>岳孙起 · 个人介绍 · 计算机协会</title>
+<meta name="description" content="岳孙起 · 沈阳理工大学虚拟现实技术专业大二学生 · 计算机协会入会自我介绍" />
+<style>
+  :root{
+    --bg:#070b14;
+    --bg-soft:#0c1222;
+    --panel:rgba(255,255,255,.045);
+    --panel-2:rgba(255,255,255,.07);
+    --line:rgba(255,255,255,.10);
+    --text:#e9effc;
+    --muted:#93a4c4;
+    --accent:#5b8cff;
+    --accent-2:#22d3ee;
+    --accent-3:#a855f7;
+    --ok:#34d399;
+    --warn:#fbbf24;
+    --shadow:0 20px 50px rgba(0,0,0,.45);
+    --radius:18px;
+  }
+  html[data-theme="light"]{
+    --bg:#f5f7fc;
+    --bg-soft:#ffffff;
+    --panel:rgba(12,18,34,.035);
+    --panel-2:rgba(12,18,34,.06);
+    --line:rgba(12,18,34,.10);
+    --text:#111a2e;
+    --muted:#5a6b8a;
+    --shadow:0 18px 40px rgba(20,35,70,.12);
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:"PingFang SC","Microsoft YaHei","Noto Sans SC","Segoe UI",system-ui,-apple-system,sans-serif;
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  #bg{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.85}
+  .glow{
+    position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(60vw 60vw at 12% -10%, rgba(91,140,255,.22), transparent 60%),
+      radial-gradient(50vw 50vw at 92% 8%, rgba(168,85,247,.18), transparent 60%),
+      radial-gradient(60vw 60vw at 50% 110%, rgba(34,211,238,.14), transparent 60%);
+  }
+  html[data-theme="light"] .glow{opacity:.55}
+
+  .wrap{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:0 22px}
+
+  /* ---------- 顶部导航 ---------- */
+  .nav{
+    position:sticky;top:0;z-index:20;
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    background:var(--bg-soft);
+    background:color-mix(in srgb, var(--bg) 72%, transparent);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{max-width:1080px;margin:0 auto;padding:10px 22px;display:flex;align-items:center;gap:14px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.4px;white-space:nowrap}
+  .brand .dot{
+    width:11px;height:11px;border-radius:50%;
+    background:linear-gradient(135deg,var(--accent),var(--accent-2));
+    box-shadow:0 0 16px rgba(91,140,255,.9);
+  }
+  .nav-links{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap;justify-content:flex-end}
+  .nav-links a{
+    color:var(--muted);text-decoration:none;font-size:13.5px;
+    padding:6px 11px;border-radius:999px;transition:.25s;
+  }
+  .nav-links a:hover{color:var(--text);background:var(--panel-2)}
+  .icon-btn{
+    border:1px solid var(--line);background:var(--panel);color:var(--text);
+    border-radius:999px;padding:6px 12px;font-size:13px;cursor:pointer;transition:.25s;
+    font-family:inherit;
+  }
+  .icon-btn:hover{background:var(--panel-2);transform:translateY(-1px)}
+
+  /* ---------- Hero ---------- */
+  .hero{padding:74px 0 30px}
+  .badge{
+    display:inline-flex;align-items:center;gap:8px;
+    border:1px solid var(--line);background:var(--panel);
+    border-radius:999px;padding:6px 14px;font-size:13px;color:var(--muted);
+    margin-bottom:20px;
+  }
+  .badge b{color:var(--accent-2);font-weight:600}
+  h1{
+    font-size:clamp(34px,6vw,58px);line-height:1.15;margin:0 0 6px;
+    letter-spacing:-.5px;font-weight:800;
+    background:linear-gradient(100deg,var(--text) 10%,var(--accent) 55%,var(--accent-2) 95%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    outline:none;border-radius:8px;padding:2px 4px;margin-left:-4px;
+  }
+  h1:hover{background-color:var(--panel)}
+  h1:focus{background-color:var(--panel);box-shadow:0 0 0 2px var(--accent) inset}
+  .edit-hint{font-size:12.5px;color:var(--muted);margin:0 0 22px;opacity:.8}
+  .role{font-size:clamp(15px,2.4vw,19px);color:var(--muted);margin:0 0 18px}
+  .role b{color:var(--text);font-weight:600}
+  .tagline{
+    font-size:clamp(16px,2.5vw,21px);font-weight:600;margin:0 0 26px;max-width:46em;
+  }
+  .tagline em{
+    font-style:normal;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px}
+  .chip{
+    border:1px solid var(--line);background:var(--panel);
+    border-radius:999px;padding:7px 15px;font-size:13.5px;color:var(--text);
+    display:inline-flex;align-items:center;gap:7px;
+  }
+  .chip i{font-style:normal;color:var(--accent);font-weight:700}
+
+  /* ---------- 通用块 ---------- */
+  section{padding:40px 0;scroll-margin-top:74px}
+  .sec-head{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+  .sec-num{
+    font-size:12.5px;font-weight:700;letter-spacing:.16em;color:var(--accent-2);
+    border:1px solid var(--line);border-radius:8px;padding:4px 9px;background:var(--panel);
+  }
+  h2{font-size:clamp(21px,3.4vw,28px);margin:0;letter-spacing:-.2px}
+  .sec-sub{color:var(--muted);font-size:14px;margin:-12px 0 24px}
+  .sec-sub b{color:var(--text);font-weight:600}
+  .stage-note{
+    margin:0 0 18px;font-size:13px;line-height:1.7;color:var(--muted);
+    background:var(--panel-2);border-left:2px solid var(--accent);
+    border-radius:0 10px 10px 0;padding:9px 14px;
+  }
+  .stage-note b{color:var(--text)}
+
+  .card{
+    background:var(--panel);border:1px solid var(--line);
+    border-radius:var(--radius);padding:22px 24px;box-shadow:var(--shadow);
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    transition:transform .3s, border-color .3s, background .3s;
+  }
+  .card:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--accent) 45%, var(--line))}
+  .card h3{margin:0 0 8px;font-size:17px;display:flex;align-items:center;gap:9px}
+  .card h3 .ic{
+    width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-size:15px;
+    background:linear-gradient(135deg,rgba(91,140,255,.28),rgba(34,211,238,.2));
+    border:1px solid var(--line);
+  }
+  .card p{margin:0;color:var(--muted);font-size:14.5px}
+  .grid{display:grid;gap:16px}
+  .g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .g4{grid-template-columns:repeat(2,minmax(0,1fr))}
+
+  .prose p{color:var(--muted);font-size:15.5px;margin:0 0 14px}
+  .prose p:last-child{margin-bottom:0}
+  .prose strong{color:var(--text)}
+  .prose .hl{color:var(--accent-2);font-weight:600}
+
+  ul.clean{margin:0;padding-left:0;list-style:none}
+  ul.clean li{
+    position:relative;padding-left:20px;margin-bottom:9px;color:var(--muted);font-size:14.5px;
+  }
+  ul.clean li::before{
+    content:"";position:absolute;left:2px;top:.62em;width:7px;height:7px;border-radius:50%;
+    background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  }
+  ul.clean li b{color:var(--text);font-weight:600}
+
+  /* ---------- 技能条 ---------- */
+  .skill{margin-bottom:16px}
+  .skill:last-child{margin-bottom:0}
+  .skill-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:14.5px;margin-bottom:7px}
+  .skill-top .lv{color:var(--muted);font-size:12.5px;white-space:nowrap}
+  .track{height:9px;border-radius:999px;background:var(--panel-2);overflow:hidden;border:1px solid var(--line)}
+  .bar{
+    height:100%;width:0;border-radius:999px;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2));
+    transition:width 1.2s cubic-bezier(.2,.75,.3,1);
+  }
+  .bar.b3{background:linear-gradient(90deg,var(--accent-3),var(--accent))}
+  .bar.bw{background:linear-gradient(90deg,var(--warn),#f97316)}
+  .bar.ok{background:linear-gradient(90deg,var(--ok),var(--accent-2))}
+
+  .legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:18px;font-size:12.5px;color:var(--muted)}
+  .legend span{display:inline-flex;align-items:center;gap:7px}
+  .legend i{width:14px;height:8px;border-radius:999px;display:inline-block}
+
+  /* ---------- 标签 ---------- */
+  .tags{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}
+  .tag{
+    font-size:13px;padding:6px 12px;border-radius:9px;
+    border:1px solid var(--line);background:var(--panel-2);color:var(--text);
+  }
+  .tag.done{border-color:rgba(52,211,153,.4);background:rgba(52,211,153,.10)}
+  .tag.doing{border-color:rgba(251,191,36,.42);background:rgba(251,191,36,.10)}
+  .tag.new{border-color:rgba(168,85,247,.42);background:rgba(168,85,247,.10)}
+
+  /* ---------- 联系方式 ---------- */
+  .contact-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+  .contact{
+    display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit;
+    background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px;
+    cursor:pointer;transition:.28s;position:relative;overflow:hidden;
+  }
+  .contact:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--accent) 55%, var(--line));background:var(--panel-2)}
+  .contact .cico{
+    width:40px;height:40px;flex:0 0 40px;border-radius:12px;display:grid;place-items:center;font-size:17px;
+    background:linear-gradient(135deg,rgba(91,140,255,.3),rgba(34,211,238,.18));border:1px solid var(--line);
+  }
+  .contact .cl{font-size:12.5px;color:var(--muted);letter-spacing:.03em}
+  .contact .cv{font-size:15px;font-weight:650;word-break:break-all}
+  .copy-tip{position:absolute;top:8px;right:12px;font-size:11px;color:var(--accent-2);opacity:0;transition:.3s}
+  .contact:hover .copy-tip{opacity:1}
+
+  footer{
+    border-top:1px solid var(--line);margin-top:30px;padding:26px 0 40px;
+    color:var(--muted);font-size:13px;display:flex;justify-content:space-between;
+    align-items:center;gap:14px;flex-wrap:wrap;
+  }
+  .btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+
+  .toast{
+    position:fixed;left:50%;bottom:34px;transform:translate(-50%,20px);
+    background:var(--bg-soft);border:1px solid var(--line);color:var(--text);
+    padding:11px 20px;border-radius:999px;font-size:14px;z-index:60;
+    box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:.35s;
+  }
+  .toast.on{opacity:1;transform:translate(-50%,0)}
+
+  /* ---------- 进场动画 ---------- */
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .75s cubic-bezier(.2,.7,.3,1),transform .75s cubic-bezier(.2,.7,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media (max-width:860px){
+    .g3,.g4{grid-template-columns:1fr}
+    .contact-grid{grid-template-columns:1fr}
+    .hero{padding:48px 0 20px}
+    .nav-links a{padding:6px 8px;font-size:13px}
+  }
+  @media (max-width:620px){
+    .g2{grid-template-columns:1fr}
+    .nav-links{display:none}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+    .reveal{opacity:1;transform:none}
+  }
+  @media print{
+    #bg,.glow,.nav,.toast,.btn-row,.edit-hint{display:none!important}
+    body{background:#fff;color:#000}
+    /* 渐变文字（background-clip:text）打印时会变成空白，必须显式还原为纯黑 */
+    h1{background:none!important;-webkit-background-clip:border-box!important;background-clip:border-box!important;
+       -webkit-text-fill-color:#000!important;color:#000!important}
+    .tagline em{background:none!important;-webkit-background-clip:border-box!important;background-clip:border-box!important;
+       -webkit-text-fill-color:#000!important;color:#000!important}
+    .card,.contact{box-shadow:none;border-color:#ccc;background:#fff}
+    .card p,.prose p,ul.clean li,.role,.sec-sub,.contact .cl,.stage-note{color:#333}
+    .card h3,.contact .cv,.skill-top span:first-child{color:#000}
+    .contact .cico,.card h3 .ic{background:#eee}
+    .tag,.chip{border-color:#ccc;background:#fff;color:#000}
+    .track{background:#eee;border-color:#ccc}
+    .bar{background:#3b82f6!important}
+    .bar.ok{background:#10b981!important}
+    .bar.b3{background:#8b5cf6!important}
+    .bar.bw{background:#f59e0b!important}
+    .reveal{opacity:1;transform:none}
+    section{padding:16px 0;break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas>
+<div class="glow" aria-hidden="true"></div>
+
+<!-- 顶部导航 -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="brand"><span class="dot"></span>个人介绍 · 计算机协会</div>
+    <div class="nav-links">
+      <a href="#about">关于我</a>
+      <a href="#why">加入理由</a>
+      <a href="#skills">技能现状</a>
+      <a href="#algo">算法进度</a>
+      <a href="#unity">Unity</a>
+      <a href="#offer">我能带来</a>
+      <a href="#contact">联系方式</a>
+    </div>
+    <button class="icon-btn" id="themeBtn" title="切换明暗主题">🌙 主题</button>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- ================= HERO ================= -->
+  <header class="hero">
+    <div class="badge">沈阳理工大学 · <b>虚拟现实技术</b>专业 · 大二在读</div>
+    <h1 id="name" contenteditable="true" spellcheck="false" title="点击可直接修改姓名">岳孙起</h1>
+    <p class="edit-hint">↑ 姓名可以直接点击修改，改完自动保存在本机浏览器里；也可以直接打印 / 导出 PDF 后提交。</p>
+
+    <p class="role">
+      <b>考研方向：虚拟现实 × 人工智能 交叉方向</b>　|　备考 408 与数学　|　备战 2027 年 4 月蓝桥杯 C++ 软件赛
+    </p>
+    <p class="tagline">
+      用 <em>C++ 打好算法的底子</em>，用 <em>Unity 把想法做成能跑起来的东西</em>，
+      把 VR 与 AI 的交叉当成长期要走的路。
+      现在最想补上的，是一群能一起做项目的人。
+    </p>
+
+    <div class="chips">
+      <span class="chip"><i>◆</i>考研 408 + 数学</span>
+      <span class="chip"><i>◆</i>蓝桥杯 C++ 软件赛</span>
+      <span class="chip"><i>◆</i>Unity 简单小游戏开发</span>
+      <span class="chip"><i>◆</i>洛谷刷题中</span>
+      <span class="chip"><i>◆</i>AI 方向零基础起步</span>
+    </div>
+
+    <div class="btn-row">
+      <a class="icon-btn" href="#contact" style="text-decoration:none">查看联系方式 →</a>
+      <button class="icon-btn" onclick="window.print()">打印 / 导出 PDF</button>
+    </div>
+  </header>
+
+  <!-- ================= 关于我 ================= -->
+  <section id="about" class="reveal">
+    <div class="sec-head"><span class="sec-num">01</span><h2>关于我</h2></div>
+    <div class="card prose">
+      <p>
+        我叫<strong>岳孙起</strong>，是沈阳理工大学<span class="hl">虚拟现实技术</span>专业的大二学生。目前的主线是<strong>考研</strong>，
+        专业课 408 与数学同步推进；第二条线是<strong>算法竞赛</strong>，正在为 2027 年 4 月的蓝桥杯 C++ 软件赛做长期准备；
+        第三条线是<strong>Unity 实践</strong>，因为课内教学以 Unity 为主，我跟着课程做了不少练习，
+        目前能独立完成一些简单的小游戏。
+      </p>
+      <p>
+        课余时间基本都在<strong>图书馆或空教室</strong>度过，习惯长时间一个人专注地啃东西。
+        但也越来越明显地感觉到：<span class="hl">一个人可以走得很快，一群人才能走得更远</span>。
+        我的专业课程方向与自己的学习方向并不完全一致，身边能一起做项目、一起讨论技术的人不多，
+        这也正是我想加入计算机协会最主要的原因。
+      </p>
+    </div>
+  </section>
+
+  <!-- ================= 加入理由 ================= -->
+  <section id="why" class="reveal">
+    <div class="sec-head"><span class="sec-num">02</span><h2>我为什么想加入计算机协会</h2></div>
+    <p class="sec-sub">说得直白一点：我需要队友，也愿意出一份力。</p>
+    <div class="grid g3">
+      <div class="card">
+        <h3><span class="ic">🤝</span>真实的团队协作</h3>
+        <p>
+          现阶段我几乎所有学习都是单打独斗，缺少分工、沟通、代码评审、进度同步这些团队环节的锻炼。
+          希望能在协会里参与真实的小组任务，学会怎么和别人一起把一件事做完。
+        </p>
+      </div>
+      <div class="card">
+        <h3><span class="ic">🧩</span>完整的项目经验</h3>
+        <p>
+          我想经历一次从<strong>需求 → 分工 → 开发 → 测试 → 展示</strong>的完整流程，
+          而不是只交课程作业。哪怕先从最基础的部分做起，也想把「项目」这两个字真正走一遍。
+        </p>
+      </div>
+      <div class="card">
+        <h3><span class="ic">🧠</span>人工智能入门</h3>
+        <p>
+          我考研准备走的是<strong>虚拟现实与人工智能的交叉方向</strong>，但在 AI 上目前是完全的小白：
+          数学基础在补，Python 和机器学习相关的内容还没系统接触。
+          希望能在协会的分享、讲座或项目里入门，从最基础的开始学，也愿意做打杂的活。
+        </p>
+      </div>
+      <div class="card">
+        <h3><span class="ic">📈</span>一起刷题、互相督促</h3>
+        <p>
+          如果你也在准备蓝桥杯、ACM 或者考研 408，我们可以组队刷题、互相讲题。
+          我目前在大量刷题阶段，很需要一个能互相盯着、互相讲思路的环境。
+        </p>
+      </div>
+      <div class="card">
+        <h3><span class="ic">🎮</span>VR / 游戏方向的共鸣</h3>
+        <p>
+          协会里如果有人做 VR、游戏、可视化或交互方向的作品，我的 Unity 经验可以直接用上，
+          也能和我的专业方向互相加成，形成长期投入的方向。
+        </p>
+      </div>
+      <div class="card">
+        <h3><span class="ic">⏳</span>能保证的时间投入</h3>
+        <p>
+          我平时就常驻图书馆和空教室，作息稳定，能保证参与度和持续性。
+          一旦加入，我会把它当成长期的事情来做，而不是凑一次热闹。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 技能现状 ================= -->
+  <section id="skills" class="reveal">
+    <div class="sec-head"><span class="sec-num">03</span><h2>技能现状（如实标注）</h2></div>
+    <p class="sec-sub">
+      不想把自己写得比实际更强。算法部分我目前处在同一个阶段：<b>数据结构、基础算法、搜索、动态规划都刚学完一轮，正在集中刷题</b>；
+      进度条表示的是自评的学习阶段，不是精确的掌握度评分。
+    </p>
+
+    <div class="grid g2">
+      <div class="card">
+        <h3><span class="ic">⚙️</span>算法与编程</h3>
+        <p class="stage-note">
+          <b>当前阶段：集中刷题。</b>四块内容都已经过完一遍，现在的任务是通过大量做题把「看得懂」变成「写得出」，
+          尤其是把 DP 的常见模型练到能条件反射地想起来。
+        </p>
+        <div class="skill">
+          <div class="skill-top"><span>C++ 基础语法 / STL</span><span class="lv">较熟练</span></div>
+          <div class="track"><div class="bar ok" data-val="80"></div></div>
+        </div>
+        <div class="skill">
+          <div class="skill-top"><span>基础数据结构（链表 / 栈 / 队列 / 二叉树 / 并查集）</span><span class="lv">刚学完 · 刷题中</span></div>
+          <div class="track"><div class="bar" data-val="70"></div></div>
+        </div>
+        <div class="skill">
+          <div class="skill-top"><span>基础算法（前缀和 / 差分 / 二分 / 贪心）</span><span class="lv">刚学完 · 刷题中</span></div>
+          <div class="track"><div class="bar" data-val="70"></div></div>
+        </div>
+        <div class="skill">
+          <div class="skill-top"><span>搜索（DFS / BFS）</span><span class="lv">刚学完 · 刷题中</span></div>
+          <div class="track"><div class="bar" data-val="70"></div></div>
+        </div>
+        <div class="skill">
+          <div class="skill-top"><span>动态规划 DP</span><span class="lv">刚学完 · 刷题中</span></div>
+          <div class="track"><div class="bar" data-val="70"></div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3><span class="ic">🎯</span>考研与开发</h3>
+        <div class="skill">
+          <div class="skill-top"><span>Unity + C#（场景搭建 / 脚本 / 简单小游戏）</span><span class="lv">中等水平</span></div>
+          <div class="track"><div class="bar b3" data-val="65"></div></div>
+        </div>
+        <div class="skill">
+          <div class="skill-top"><span>408 专业课（数据结构 / 组成原理 / 操作系统 / 网络）</span><span class="lv">备考中</span></div>
+          <div class="track"><div class="bar b3" data-val="45"></div></div>
+        </div>
+        <div class="skill">
+          <div class="skill-top"><span>数学（高数 / 线代 / 概率论）</span><span class="lv">备考中</span></div>
+          <div class="track"><div class="bar b3" data-val="45"></div></div>
+        </div>
+        <div class="skill">
+          <div class="skill-top"><span>人工智能 / 机器学习</span><span class="lv">零基础起步</span></div>
+          <div class="track"><div class="bar bw" data-val="10"></div></div>
+        </div>
+
+        <div class="legend">
+          <span><i style="background:linear-gradient(90deg,var(--ok),var(--accent-2))"></i>已掌握 / 较熟练</span>
+          <span><i style="background:linear-gradient(90deg,var(--accent),var(--accent-2))"></i>刚学完 · 刷题中</span>
+          <span><i style="background:linear-gradient(90deg,var(--warn),#f97316)"></i>学习中 / 入门</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 算法进度 ================= -->
+  <section id="algo" class="reveal">
+    <div class="sec-head"><span class="sec-num">04</span><h2>算法学习进度</h2></div>
+    <p class="sec-sub">目标：2027 年 4 月蓝桥杯 C++ 软件赛。现在的状态是「基础阶段刚过完一轮，正在集中刷题」。</p>
+
+    <div class="grid g2">
+      <div class="card">
+        <h3><span class="ic">✅</span>已过完一轮（刚学完）</h3>
+        <ul class="clean">
+          <li><b>基础数据结构：</b>链表、队列、栈、二叉树、并查集</li>
+          <li><b>基础算法：</b>前缀和、差分、二分、贪心</li>
+          <li><b>搜索：</b>DFS、BFS</li>
+          <li><b>动态规划：</b>基础内容刚学完，正处于刷题巩固阶段</li>
+        </ul>
+        <div class="tags">
+          <span class="tag done">链表</span><span class="tag done">栈</span><span class="tag done">队列</span>
+          <span class="tag done">二叉树</span><span class="tag done">并查集</span>
+          <span class="tag done">前缀和</span><span class="tag done">差分</span>
+          <span class="tag done">二分</span><span class="tag done">贪心</span>
+          <span class="tag done">DFS</span><span class="tag done">BFS</span>
+          <span class="tag done">动态规划 DP</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3><span class="ic">🔥</span>当前阶段：集中刷题</h3>
+        <ul class="clean">
+          <li><b>刷题：</b>数据结构、基础算法、搜索、DP 四个模块都刚过完一轮，现在每天大量做题，把「看得懂」练成「写得出」</li>
+          <li><b>重点：</b>DP 的常见模型还需要反复练，是刷题中的主要方向</li>
+          <li><b>下一步计划：</b>巩固以上内容之后，再补图论与数论基础</li>
+        </ul>
+        <div class="tags">
+          <span class="tag doing">大量刷题中</span>
+          <span class="tag doing">DP 模型巩固</span>
+          <span class="tag new">图论（待补）</span>
+          <span class="tag new">数论 / 数学（待补）</span>
+        </div>
+        <p style="margin-top:16px">
+          我的洛谷主页：
+          <a href="https://www.luogu.com.cn/user/2142943" target="_blank" rel="noopener"
+             style="color:var(--accent-2);word-break:break-all">www.luogu.com.cn/user/2142943</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Unity ================= -->
+  <section id="unity" class="reveal">
+    <div class="sec-head"><span class="sec-num">05</span><h2>我的特长：Unity</h2></div>
+    <p class="sec-sub">和社团里的同学相比，这大概是我目前最拿得出手、也最能直接用上的一项能力。</p>
+    <div class="grid g2">
+      <div class="card">
+        <h3><span class="ic">🕹️</span>目前能独立完成的事</h3>
+        <ul class="clean">
+          <li>搭建 2D / 3D 场景，配置相机、灯光与基础渲染效果</li>
+          <li>用 C# 编写角色控制、交互逻辑与游戏流程脚本</li>
+          <li>制作 UI 界面、简单动画与基础物理交互</li>
+          <li>独立完成并打包一些<strong>简单的小游戏</strong> Demo</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3><span class="ic">🚀</span>能在协会里用上的地方</h3>
+        <ul class="clean">
+          <li>协会做 <strong>VR / 游戏 / 可视化 Demo</strong> 时，可以直接承担引擎侧的实现</li>
+          <li>需要「能看见效果」的展示型作品时，我能把想法快速做成可运行的交互原型</li>
+          <li>和我的专业方向一致，可以和 AI 结合做「智能 + 交互」的交叉小项目</li>
+          <li>也愿意把自己摸索出来的 Unity 经验分享给刚入门的同学</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 我能带来 ================= -->
+  <section id="offer" class="reveal">
+    <div class="sec-head"><span class="sec-num">06</span><h2>我能带来什么 / 我希望得到什么</h2></div>
+    <div class="grid g2">
+      <div class="card">
+        <h3><span class="ic">🎁</span>我能带来</h3>
+        <ul class="clean">
+          <li><b>Unity 实操能力：</b>能做交互原型和小游戏，不是只会理论</li>
+          <li><b>稳定的时间投入：</b>常驻图书馆与空教室，参与度有保障</li>
+          <li><b>正在夯实的算法基础：</b>可以一起组队刷题、互相讲题</li>
+          <li><b>长期主义：</b>考研方向与 VR / AI 一致，会长期留在这个方向上</li>
+          <li><b>肯干活的态度：</b>基础的、琐碎的活我也愿意接</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3><span class="ic">🙋</span>我希望得到</h3>
+        <ul class="clean">
+          <li><b>团队协作机会：</b>参与真实分工的项目，而不是一个人写作业</li>
+          <li><b>项目经验：</b>完整走一遍需求、开发、协作与展示的流程</li>
+          <li><b>AI 入门引导：</b>从零开始的学习路径、资料与前辈的指点</li>
+          <li><b>技术伙伴：</b>一起刷题、一起做项目、一起卷的人</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 联系方式 ================= -->
+  <section id="contact" class="reveal">
+    <div class="sec-head"><span class="sec-num">07</span><h2>联系方式</h2></div>
+    <p class="sec-sub">点击任意卡片即可复制。随时联系我，看到就回；如果需要其他联系方式，也可以先加 QQ 或发邮件。</p>
+
+    <div class="contact-grid">
+      <div class="contact" data-copy="2918508317" role="button" tabindex="0">
+        <div class="cico">💬</div>
+        <div>
+          <div class="cl">QQ</div>
+          <div class="cv">2918508317</div>
+        </div>
+        <span class="copy-tip">点击复制</span>
+      </div>
+
+      <div class="contact" data-copy="2918508317@qq.com" role="button" tabindex="0">
+        <div class="cico">✉️</div>
+        <div>
+          <div class="cl">邮箱</div>
+          <div class="cv">2918508317@qq.com</div>
+        </div>
+        <span class="copy-tip">点击复制</span>
+      </div>
+
+      <a class="contact" href="https://www.luogu.com.cn/user/2142943" target="_blank" rel="noopener"
+         style="grid-column:1/-1">
+        <div class="cico">🧮</div>
+        <div>
+          <div class="cl">洛谷主页</div>
+          <div class="cv">https://www.luogu.com.cn/user/2142943</div>
+        </div>
+        <span class="copy-tip">点击打开</span>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <span>岳孙起 · 沈阳理工大学 · 虚拟现实技术专业 · 计算机协会入会自我介绍</span>
+    <span>期待和大家一起，把想法做成能跑起来的东西。</span>
+  </footer>
+</div>
+
+<div class="toast" id="toast">已复制</div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---------- 姓名：可编辑 + 本地保存 ---------- */
+  var nameEl = document.getElementById("name");
+  var DEFAULT_NAME = "岳孙起";
+  /* 旧版占位文字，若曾被误存进浏览器，这里直接忽略，避免覆盖真实姓名 */
+  var LEGACY = ["点击这里填写姓名"];
+  try {
+    var saved = localStorage.getItem("intro.name");
+    if (saved && LEGACY.indexOf(saved) === -1) { nameEl.textContent = saved; }
+    else if (saved) { localStorage.removeItem("intro.name"); }
+  } catch (e) {}
+
+  function syncTitle() {
+    var v = nameEl.textContent.replace(/\s+/g, " ").trim();
+    document.title = (v ? v + " · " : "") + "个人介绍 · 计算机协会";
+  }
+  syncTitle();
+
+  nameEl.addEventListener("blur", function () {
+    var v = nameEl.textContent.replace(/\s+/g, " ").trim();
+    if (!v || LEGACY.indexOf(v) !== -1) { v = DEFAULT_NAME; }
+    nameEl.textContent = v;
+    try { localStorage.setItem("intro.name", v); } catch (e) {}
+    syncTitle();
+  });
+  nameEl.addEventListener("keydown", function (ev) {
+    if (ev.key === "Enter") { ev.preventDefault(); nameEl.blur(); }
+  });
+
+  /* ---------- 主题切换 ---------- */
+  var root = document.documentElement;
+  var themeBtn = document.getElementById("themeBtn");
+  try {
+    var t = localStorage.getItem("intro.theme");
+    if (t) { root.setAttribute("data-theme", t); }
+  } catch (e) {}
+  function syncThemeBtn() {
+    themeBtn.textContent = root.getAttribute("data-theme") === "light" ? "☀️ 主题" : "🌙 主题";
+  }
+  syncThemeBtn();
+  themeBtn.addEventListener("click", function () {
+    var next = root.getAttribute("data-theme") === "light" ? "dark" : "light";
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem("intro.theme", next); } catch (e) {}
+    syncThemeBtn();
+  });
+
+  /* ---------- 进场动画 + 技能条 ---------- */
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var reveals = document.querySelectorAll(".reveal");
+  var bars = document.querySelectorAll(".bar");
+
+  function fillBars() {
+    bars.forEach(function (b) {
+      var v = Math.max(0, Math.min(100, parseFloat(b.getAttribute("data-val")) || 0));
+      b.style.width = v + "%";
+    });
+  }
+
+  if ("IntersectionObserver" in window && !reduce) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          en.target.classList.add("in");
+          en.target.querySelectorAll(".bar").forEach(function (b) {
+            var v = Math.max(0, Math.min(100, parseFloat(b.getAttribute("data-val")) || 0));
+            b.style.width = v + "%";
+          });
+          io.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.16, rootMargin: "0px 0px -8% 0px" });
+    reveals.forEach(function (el) { io.observe(el); });
+    // 首屏立即填充
+    setTimeout(function () {
+      document.querySelectorAll(".hero .bar").forEach(function (b) {
+        b.style.width = (parseFloat(b.getAttribute("data-val")) || 0) + "%";
+      });
+    }, 260);
+  } else {
+    reveals.forEach(function (el) { el.classList.add("in"); });
+    fillBars();
+  }
+
+  /* ---------- 复制 ---------- */
+  var toast = document.getElementById("toast");
+  var toastTimer = null;
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add("on");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { toast.classList.remove("on"); }, 1600);
+  }
+  function fallbackCopy(text) {
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    ta.setAttribute("readonly", "");
+    ta.style.position = "fixed";
+    ta.style.top = "-1000px";
+    document.body.appendChild(ta);
+    ta.select();
+    var ok = false;
+    try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+    document.body.removeChild(ta);
+    return ok;
+  }
+  function copyText(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () {
+        showToast("已复制：" + text);
+      }).catch(function () {
+        showToast(fallbackCopy(text) ? "已复制：" + text : "复制失败，请手动选择复制");
+      });
+    } else {
+      showToast(fallbackCopy(text) ? "已复制：" + text : "复制失败，请手动选择复制");
+    }
+  }
+  document.querySelectorAll("[data-copy]").forEach(function (el) {
+    var act = function () { copyText(el.getAttribute("data-copy")); };
+    el.addEventListener("click", act);
+    el.addEventListener("keydown", function (ev) {
+      if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); act(); }
+    });
+  });
+
+  /* ---------- 背景粒子 ---------- */
+  var canvas = document.getElementById("bg");
+  if (canvas && canvas.getContext) {
+    var ctx = canvas.getContext("2d");
+    var w = 0, h = 0, dpr = 1, pts = [];
+    var LINK = 132;
+
+    function resize() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = canvas.width = Math.floor(window.innerWidth * dpr);
+      h = canvas.height = Math.floor(window.innerHeight * dpr);
+      canvas.style.width = window.innerWidth + "px";
+      canvas.style.height = window.innerHeight + "px";
+      var n = Math.max(24, Math.min(72, Math.round(window.innerWidth / 20)));
+      pts = [];
+      for (var i = 0; i < n; i++) {
+        pts.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          vx: (Math.random() - 0.5) * 0.24 * dpr,
+          vy: (Math.random() - 0.5) * 0.24 * dpr,
+          r: (Math.random() * 1.3 + 0.6) * dpr
+        });
+      }
+    }
+
+    function color() {
+      return root.getAttribute("data-theme") === "light"
+        ? { dot: "91,140,255", line: "91,140,255" }
+        : { dot: "120,175,255", line: "120,175,255" };
+    }
+
+    function draw() {
+      var c = color();
+      ctx.clearRect(0, 0, w, h);
+      var link = LINK * dpr;
+      for (var i = 0; i < pts.length; i++) {
+        var p = pts[i];
+        for (var j = i + 1; j < pts.length; j++) {
+          var q = pts[j];
+          var dx = p.x - q.x, dy = p.y - q.y;
+          var d2 = dx * dx + dy * dy;
+          if (d2 < link * link) {
+            var a = (1 - Math.sqrt(d2) / link) * 0.30;
+            ctx.strokeStyle = "rgba(" + c.line + "," + a.toFixed(3) + ")";
+            ctx.lineWidth = 1 * dpr;
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(q.x, q.y);
+            ctx.stroke();
+          }
+        }
+        ctx.fillStyle = "rgba(" + c.dot + ",0.55)";
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function step() {
+      for (var i = 0; i < pts.length; i++) {
+        var p = pts[i];
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0 || p.x > w) { p.vx *= -1; p.x = Math.max(0, Math.min(w, p.x)); }
+        if (p.y < 0 || p.y > h) { p.vy *= -1; p.y = Math.max(0, Math.min(h, p.y)); }
+      }
+      draw();
+      requestAnimationFrame(step);
+    }
+
+    resize();
+    window.addEventListener("resize", resize);
+    if (reduce) { draw(); } else { requestAnimationFrame(step); }
+  }
+})();
+</script>
+</body>
+</html>
