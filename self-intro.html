@@ -217,6 +217,17 @@
   .copy-tip{position:absolute;top:8px;right:12px;font-size:11px;color:var(--accent-2);opacity:0;transition:.3s}
   .contact:hover .copy-tip{opacity:1}
 
+  /* 微信二维码卡片 */
+  .contact-qr{grid-column:1/-1;cursor:default;gap:24px;padding:20px 24px}
+  .qr-link{display:block;line-height:0;flex:0 0 auto;border-radius:14px;transition:.28s}
+  .qr-link:hover{transform:scale(1.03)}
+  .qr-img{
+    display:block;width:220px;height:220px;border-radius:12px;background:#fff;
+    border:1px solid var(--line);box-shadow:0 8px 22px rgba(0,0,0,.28);
+  }
+  .qr-tip{margin:10px 0 0;font-size:12.5px;color:var(--muted);line-height:1.65;max-width:34em}
+  .contact-qr .cv{font-size:16px}
+
   footer{
     border-top:1px solid var(--line);margin-top:30px;padding:26px 0 40px;
     color:var(--muted);font-size:13px;display:flex;justify-content:space-between;
@@ -246,6 +257,8 @@
   @media (max-width:620px){
     .g2{grid-template-columns:1fr}
     .nav-links{display:none}
+    .contact-qr{flex-direction:column;align-items:center;text-align:center;gap:16px}
+    .qr-tip{text-align:left}
   }
   @media (prefers-reduced-motion:reduce){
     *{animation:none!important;transition:none!important}
@@ -565,25 +578,22 @@
   <!-- ================= 联系方式 ================= -->
   <section id="contact" class="reveal">
     <div class="sec-head"><span class="sec-num">07</span><h2>联系方式</h2></div>
-    <p class="sec-sub">点击任意卡片即可复制。随时联系我，电话、微信、QQ、邮箱都行，看到就回。</p>
+    <p class="sec-sub">点击卡片即可复制，微信请扫码添加。随时联系我，看到就回。</p>
 
     <div class="contact-grid">
-      <div class="contact" data-copy="18439347229" role="button" tabindex="0">
-        <div class="cico">📱</div>
-        <div>
-          <div class="cl">电话</div>
-          <div class="cv">18439347229</div>
-        </div>
-        <span class="copy-tip">点击复制</span>
-      </div>
-
-      <div class="contact" data-copy="18439347229" role="button" tabindex="0">
-        <div class="cico">💚</div>
+      <div class="contact contact-qr">
+        <a class="qr-link" href="./wechat-qr.png" target="_blank" rel="noopener" title="点击查看二维码大图">
+          <img class="qr-img" src="./wechat-qr.png" width="766" height="766"
+               alt="微信二维码：扫码添加岳孙起为好友" />
+        </a>
         <div>
           <div class="cl">微信</div>
-          <div class="cv">18439347229</div>
+          <div class="cv">扫码添加我</div>
+          <p class="qr-tip">
+            用微信「扫一扫」即可加我好友。在电脑上打开本页时，用手机扫这个码最方便；
+            手机上可以点一下二维码查看大图再长按识别。
+          </p>
         </div>
-        <span class="copy-tip">点击复制</span>
       </div>
 
       <div class="contact" data-copy="2918508317" role="button" tabindex="0">
