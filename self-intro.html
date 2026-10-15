@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<script>document.documentElement.classList.add("js");</script>
 <title>岳孙起 · 个人介绍 · 计算机协会</title>
 <meta name="description" content="岳孙起 · 沈阳理工大学虚拟现实技术专业大二学生 · 计算机协会入会自我介绍" />
 <style>
@@ -233,9 +234,10 @@
   }
   .toast.on{opacity:1;transform:translate(-50%,0)}
 
-  /* ---------- 进场动画 ---------- */
-  .reveal{opacity:0;transform:translateY(20px);transition:opacity .75s cubic-bezier(.2,.7,.3,1),transform .75s cubic-bezier(.2,.7,.3,1)}
-  .reveal.in{opacity:1;transform:none}
+  /* ---------- 进场动画（只在 JS 可用时才隐藏，避免无 JS 时出现空白）---------- */
+  .reveal{transition:opacity .75s cubic-bezier(.2,.7,.3,1),transform .75s cubic-bezier(.2,.7,.3,1)}
+  .js .reveal{opacity:0;transform:translateY(20px)}
+  .js .reveal.in{opacity:1;transform:none}
 
   @media (max-width:860px){
     .g3,.g4{grid-template-columns:1fr}
@@ -249,7 +251,7 @@
   }
   @media (prefers-reduced-motion:reduce){
     *{animation:none!important;transition:none!important}
-    .reveal{opacity:1;transform:none}
+    .js .reveal{opacity:1!important;transform:none!important}
   }
   @media print{
     #bg,.glow,.nav,.toast,.btn-row,.edit-hint{display:none!important}
@@ -269,10 +271,14 @@
     .bar.ok{background:#10b981!important}
     .bar.b3{background:#8b5cf6!important}
     .bar.bw{background:#f59e0b!important}
+    /* 打印时强制展开所有区块、显示完整进度条，避免打出空白 */
+    .js .reveal{opacity:1!important;transform:none!important}
+    .bar{width:var(--v,0%)!important}
     .reveal{opacity:1;transform:none}
     section{padding:16px 0;break-inside:avoid}
   }
 </style>
+<noscript><style>.bar{width:var(--v,0%)}</style></noscript>
 </head>
 <body>
 <canvas id="bg" aria-hidden="true"></canvas>
@@ -413,23 +419,23 @@
         </p>
         <div class="skill">
           <div class="skill-top"><span>C++ 基础语法 / STL</span><span class="lv">较熟练</span></div>
-          <div class="track"><div class="bar ok" data-val="80"></div></div>
+          <div class="track"><div class="bar ok" style="--v:80%"></div></div>
         </div>
         <div class="skill">
           <div class="skill-top"><span>基础数据结构（链表 / 栈 / 队列 / 二叉树 / 并查集）</span><span class="lv">刚学完 · 刷题中</span></div>
-          <div class="track"><div class="bar" data-val="70"></div></div>
+          <div class="track"><div class="bar" style="--v:70%"></div></div>
         </div>
         <div class="skill">
           <div class="skill-top"><span>基础算法（前缀和 / 差分 / 二分 / 贪心）</span><span class="lv">刚学完 · 刷题中</span></div>
-          <div class="track"><div class="bar" data-val="70"></div></div>
+          <div class="track"><div class="bar" style="--v:70%"></div></div>
         </div>
         <div class="skill">
           <div class="skill-top"><span>搜索（DFS / BFS）</span><span class="lv">刚学完 · 刷题中</span></div>
-          <div class="track"><div class="bar" data-val="70"></div></div>
+          <div class="track"><div class="bar" style="--v:70%"></div></div>
         </div>
         <div class="skill">
           <div class="skill-top"><span>动态规划 DP</span><span class="lv">刚学完 · 刷题中</span></div>
-          <div class="track"><div class="bar" data-val="70"></div></div>
+          <div class="track"><div class="bar" style="--v:70%"></div></div>
         </div>
       </div>
 
@@ -437,19 +443,19 @@
         <h3><span class="ic">🎯</span>考研与开发</h3>
         <div class="skill">
           <div class="skill-top"><span>Unity + C#（场景搭建 / 脚本 / 简单小游戏）</span><span class="lv">中等水平</span></div>
-          <div class="track"><div class="bar b3" data-val="65"></div></div>
+          <div class="track"><div class="bar b3" style="--v:65%"></div></div>
         </div>
         <div class="skill">
           <div class="skill-top"><span>408 专业课（数据结构 / 组成原理 / 操作系统 / 网络）</span><span class="lv">备考中</span></div>
-          <div class="track"><div class="bar b3" data-val="45"></div></div>
+          <div class="track"><div class="bar b3" style="--v:45%"></div></div>
         </div>
         <div class="skill">
           <div class="skill-top"><span>数学（高数 / 线代 / 概率论）</span><span class="lv">备考中</span></div>
-          <div class="track"><div class="bar b3" data-val="45"></div></div>
+          <div class="track"><div class="bar b3" style="--v:45%"></div></div>
         </div>
         <div class="skill">
           <div class="skill-top"><span>人工智能 / 机器学习</span><span class="lv">零基础起步</span></div>
-          <div class="track"><div class="bar bw" data-val="10"></div></div>
+          <div class="track"><div class="bar bw" style="--v:10%"></div></div>
         </div>
 
         <div class="legend">
@@ -656,38 +662,64 @@
   /* ---------- 进场动画 + 技能条 ---------- */
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var reveals = document.querySelectorAll(".reveal");
-  var bars = document.querySelectorAll(".bar");
 
-  function fillBars() {
-    bars.forEach(function (b) {
-      var v = Math.max(0, Math.min(100, parseFloat(b.getAttribute("data-val")) || 0));
-      b.style.width = v + "%";
+  function barVal(b) {
+    var raw = b.style.getPropertyValue("--v") || "0";
+    return Math.max(0, Math.min(100, parseFloat(raw) || 0));
+  }
+  function fillBars(scope) {
+    (scope || document).querySelectorAll(".bar").forEach(function (b) {
+      b.style.width = barVal(b) + "%";
     });
   }
+  function markIn(el) {
+    if (!el || el.classList.contains("in")) { return; }
+    el.classList.add("in");
+    fillBars(el);
+  }
+  function revealAll() { reveals.forEach(markIn); }
 
-  if ("IntersectionObserver" in window && !reduce) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (en.isIntersecting) {
-          en.target.classList.add("in");
-          en.target.querySelectorAll(".bar").forEach(function (b) {
-            var v = Math.max(0, Math.min(100, parseFloat(b.getAttribute("data-val")) || 0));
-            b.style.width = v + "%";
-          });
-          io.unobserve(en.target);
-        }
-      });
-    }, { threshold: 0.16, rootMargin: "0px 0px -8% 0px" });
-    reveals.forEach(function (el) { io.observe(el); });
-    // 首屏立即填充
-    setTimeout(function () {
-      document.querySelectorAll(".hero .bar").forEach(function (b) {
-        b.style.width = (parseFloat(b.getAttribute("data-val")) || 0) + "%";
-      });
-    }, 260);
+  if (reduce) {
+    /* 用户要求减少动态效果：直接全部显示 */
+    revealAll();
   } else {
-    reveals.forEach(function (el) { el.classList.add("in"); });
-    fillBars();
+    var vh = function () { return window.innerHeight || document.documentElement.clientHeight; };
+    var inView = function (el) {
+      var r = el.getBoundingClientRect();
+      return r.top < vh() * 0.9 && r.bottom > 0;
+    };
+    /* 用滚动扫描作兜底，不依赖 IntersectionObserver：
+       保证「锚点直达 / 观察器失效 / 页面很短」时内容都不会一直留在隐藏状态 */
+    var sweep = function () {
+      reveals.forEach(function (el) { if (inView(el)) { markIn(el); } });
+    };
+    var ticking = false;
+    var onScroll = function () {
+      if (ticking) { return; }
+      ticking = true;
+      requestAnimationFrame(function () { ticking = false; sweep(); });
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    window.addEventListener("hashchange", function () {
+      try { markIn(document.querySelector(location.hash)); } catch (e) {}
+      onScroll();
+    });
+    /* 打印 / 导出 PDF 前展开所有内容，否则没滚到的部分会印成空白 */
+    window.addEventListener("beforeprint", function () { revealAll(); });
+    if (window.matchMedia) {
+      try {
+        window.matchMedia("print").addEventListener("change", function (e) {
+          if (e.matches) { revealAll(); }
+        });
+      } catch (e) {}
+    }
+
+    try { markIn(document.querySelector(location.hash)); } catch (e) {}
+    sweep();
+    requestAnimationFrame(sweep);
+    setTimeout(sweep, 400);
   }
 
   /* ---------- 复制 ---------- */
