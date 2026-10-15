@@ -100,10 +100,8 @@
     background:linear-gradient(100deg,var(--text) 10%,var(--accent) 55%,var(--accent-2) 95%);
     -webkit-background-clip:text;background-clip:text;color:transparent;
     outline:none;border-radius:8px;padding:2px 4px;margin-left:-4px;
+    -webkit-user-select:none;user-select:none;
   }
-  h1:hover{background-color:var(--panel)}
-  h1:focus{background-color:var(--panel);box-shadow:0 0 0 2px var(--accent) inset}
-  .edit-hint{font-size:12.5px;color:var(--muted);margin:0 0 22px;opacity:.8}
   .role{font-size:clamp(15px,2.4vw,19px);color:var(--muted);margin:0 0 18px}
   .role b{color:var(--text);font-weight:600}
   .tagline{
@@ -254,7 +252,7 @@
     .js .reveal{opacity:1!important;transform:none!important}
   }
   @media print{
-    #bg,.glow,.nav,.toast,.btn-row,.edit-hint{display:none!important}
+    #bg,.glow,.nav,.toast,.btn-row{display:none!important}
     body{background:#fff;color:#000}
     /* 渐变文字（background-clip:text）打印时会变成空白，必须显式还原为纯黑 */
     h1{background:none!important;-webkit-background-clip:border-box!important;background-clip:border-box!important;
@@ -306,8 +304,7 @@
   <!-- ================= HERO ================= -->
   <header class="hero">
     <div class="badge">沈阳理工大学 · <b>虚拟现实技术</b>专业 · 大二在读</div>
-    <h1 id="name" contenteditable="true" spellcheck="false" title="点击可直接修改姓名">岳孙起</h1>
-    <p class="edit-hint">↑ 姓名可以直接点击修改，改完自动保存在本机浏览器里；也可以直接打印 / 导出 PDF 后提交。</p>
+    <h1 id="name">岳孙起</h1>
 
     <p class="role">
       <b>考研方向：虚拟现实 × 人工智能 交叉方向</b>　|　备考 408 与数学　|　备战 2027 年 4 月蓝桥杯 C++ 软件赛
@@ -568,9 +565,27 @@
   <!-- ================= 联系方式 ================= -->
   <section id="contact" class="reveal">
     <div class="sec-head"><span class="sec-num">07</span><h2>联系方式</h2></div>
-    <p class="sec-sub">点击任意卡片即可复制。随时联系我，看到就回；如果需要其他联系方式，也可以先加 QQ 或发邮件。</p>
+    <p class="sec-sub">点击任意卡片即可复制。随时联系我，电话、微信、QQ、邮箱都行，看到就回。</p>
 
     <div class="contact-grid">
+      <div class="contact" data-copy="18439347229" role="button" tabindex="0">
+        <div class="cico">📱</div>
+        <div>
+          <div class="cl">电话</div>
+          <div class="cv">18439347229</div>
+        </div>
+        <span class="copy-tip">点击复制</span>
+      </div>
+
+      <div class="contact" data-copy="18439347229" role="button" tabindex="0">
+        <div class="cico">💚</div>
+        <div>
+          <div class="cl">微信</div>
+          <div class="cv">18439347229</div>
+        </div>
+        <span class="copy-tip">点击复制</span>
+      </div>
+
       <div class="contact" data-copy="2918508317" role="button" tabindex="0">
         <div class="cico">💬</div>
         <div>
@@ -612,34 +627,6 @@
 <script>
 (function () {
   "use strict";
-
-  /* ---------- 姓名：可编辑 + 本地保存 ---------- */
-  var nameEl = document.getElementById("name");
-  var DEFAULT_NAME = "岳孙起";
-  /* 旧版占位文字，若曾被误存进浏览器，这里直接忽略，避免覆盖真实姓名 */
-  var LEGACY = ["点击这里填写姓名"];
-  try {
-    var saved = localStorage.getItem("intro.name");
-    if (saved && LEGACY.indexOf(saved) === -1) { nameEl.textContent = saved; }
-    else if (saved) { localStorage.removeItem("intro.name"); }
-  } catch (e) {}
-
-  function syncTitle() {
-    var v = nameEl.textContent.replace(/\s+/g, " ").trim();
-    document.title = (v ? v + " · " : "") + "个人介绍 · 计算机协会";
-  }
-  syncTitle();
-
-  nameEl.addEventListener("blur", function () {
-    var v = nameEl.textContent.replace(/\s+/g, " ").trim();
-    if (!v || LEGACY.indexOf(v) !== -1) { v = DEFAULT_NAME; }
-    nameEl.textContent = v;
-    try { localStorage.setItem("intro.name", v); } catch (e) {}
-    syncTitle();
-  });
-  nameEl.addEventListener("keydown", function (ev) {
-    if (ev.key === "Enter") { ev.preventDefault(); nameEl.blur(); }
-  });
 
   /* ---------- 主题切换 ---------- */
   var root = document.documentElement;
